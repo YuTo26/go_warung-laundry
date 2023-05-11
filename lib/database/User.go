@@ -46,3 +46,13 @@ func LoginUser(user *models.User) error {
 	}
 	return nil
 }
+<<<<<<< Updated upstream
+=======
+
+func UpdateUserToken(user *models.User) error {
+	if err := config.DB.Model(&user).Update("token", user.Token).Error; err != nil {
+		return err
+	}
+	return nil
+}
+>>>>>>> Stashed changes

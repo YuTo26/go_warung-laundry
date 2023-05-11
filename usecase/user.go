@@ -8,6 +8,7 @@ import (
 	"go_warung-laundry/models/payload"
 )
 
+<<<<<<< Updated upstream
 func LoginUser(user *models.User) (err error) {
 	// check to db Username and password
 	err = database.LoginUser(user)
@@ -28,12 +29,18 @@ func LoginUser(user *models.User) (err error) {
 func CreateUser(req *payload.CreateUserRequest) (resp payload.CreateUserResponse, err error) {
 	newUser := &models.User{
 		Username: req.Name,
+=======
+func RegisterUser(req *payload.CreateUserRequest) (resp payload.CreateUserResponse, err error) {
+	newUser := &models.User{
+		Username: req.Username,
+>>>>>>> Stashed changes
 		Password: req.Password,
 	}
 	err = database.CreateUser(newUser)
 	if err != nil {
 		return
 	}
+<<<<<<< Updated upstream
 	// generate jwt
 	token, err := middlewares.CreateToken(int(newUser.ID))
 	if err != nil {
@@ -49,6 +56,92 @@ func CreateUser(req *payload.CreateUserRequest) (resp payload.CreateUserResponse
 	resp = payload.CreateUserResponse{
 		UserID: newUser.ID,
 		Token:  newUser.Token,
+=======
+
+	// generate jwt
+	token, err := middlewares.CreateToken(int(newUser.ID))
+	if err != nil {
+		fmt.Println("RegisterUser: Error Generate token")
+		return
+	}
+
+	newUser.Token = token
+	err = database.UpdateUserToken(newUser)
+	if err != nil {
+		fmt.Println("UpdateUserToken: Error Update user token")
+		return
+	}
+
+	resp = payload.CreateUserResponse{
+		UserID:   newUser.ID,
+		Username: newUser.Username,
+		Token:    newUser.Token,
+	}
+	return
+}
+
+func LoginUser(req *payload.LoginRequest) (resp payload.LoginResponse, err error) {
+	user := &models.User{
+		Username: req.Username,
+		Password: req.Password,
+	}
+
+	err = database.LoginUser(user)
+	if err != nil {
+		return
+	}
+
+	token, err := middlewares.CreateToken(int(user.ID))
+	if err != nil {
+		fmt.Println("LoginUser: Error Generate token")
+		return
+	}
+
+	user.Token = token
+	err = database.UpdateUserToken(user)
+	if err != nil {
+		fmt.Println("UpdateUserToken: Error Update user token")
+		return
+	}
+
+	resp = payload.LoginResponse{
+		UserID:   user.ID,
+		Username: user.Username,
+		Token:    user.Token,
+	}
+
+	return
+}
+
+func CreateUser(req *payload.CreateUserRequest) (resp payload.CreateUserResponse, err error) {
+	newUser := &models.User{
+		Username: req.Username,
+		Password: req.Password,
+	}
+	err = database.CreateUser(newUser)
+	if err != nil {
+		return
+	}
+
+	// generate jwt
+	token, err := middlewares.CreateToken(int(newUser.ID))
+	if err != nil {
+		fmt.Println("CreateUser: Error Generate token")
+		return
+	}
+
+	newUser.Token = token
+	err = database.UpdateUserToken(newUser)
+	if err != nil {
+		fmt.Println("UpdateUserToken: Error Update user token")
+		return
+	}
+
+	resp = payload.CreateUserResponse{
+		UserID:   newUser.ID,
+		Username: newUser.Username,
+		Token:    newUser.Token,
+>>>>>>> Stashed changes
 	}
 	return
 }
