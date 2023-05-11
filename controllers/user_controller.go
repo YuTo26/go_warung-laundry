@@ -8,6 +8,11 @@ import (
 
 	"go_warung-laundry/config"
 	"go_warung-laundry/models"
+<<<<<<< Updated upstream
+=======
+	"go_warung-laundry/models/payload"
+	"go_warung-laundry/usecase"
+>>>>>>> Stashed changes
 )
 
 // Create new user
@@ -114,3 +119,31 @@ func DeleteUserByID(c echo.Context) error {
 		"message": "success delete user by ID",
 	})
 }
+<<<<<<< Updated upstream
+=======
+
+//user register & login
+
+func RegisterUserController(c echo.Context) error {
+	payload := payload.CreateUserRequest{}
+	c.Bind(&payload)
+	// validate request body
+	if err := c.Validate(payload); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"messages":         "error register user",
+			"errorDescription": err.Error(), // add .Error() to convert error to string
+		})
+	}
+	resp, err := usecase.RegisterUser(&payload)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"messages":         "error register user",
+			"errorDescription": err.Error(), // add .Error() to convert error to string
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success register new user",
+		"data":    resp,
+	})
+}
+>>>>>>> Stashed changes
