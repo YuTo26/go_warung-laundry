@@ -5,7 +5,11 @@ import (
 
 	"go_warung-laundry/controllers"
 
+<<<<<<< Updated upstream
 	"github.com/go-playground/validator"
+=======
+	"github.com/go-playground/validator/v10"
+>>>>>>> Stashed changes
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
@@ -24,8 +28,14 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 
 func New(e *echo.Echo, db *gorm.DB) {
 	e.Validator = &CustomValidator{validator: validator.New()}
+<<<<<<< Updated upstream
 
 	e.POST("/login", controllers.LoginUserController)
+=======
+	//register & login
+	e.POST("/users/login", controllers.LoginUserController)
+	e.POST("/users/register", controllers.RegisterUserController)
+>>>>>>> Stashed changes
 
 	//jenis laundry
 	e.GET("/jenis_laundry", controllers.GetAllJenisLaundry)
