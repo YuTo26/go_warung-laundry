@@ -1,11 +1,5 @@
 package payload
 
-<<<<<<< Updated upstream
-type (
-	CreateUserRequest struct {
-		Name     string `json:"nama" form:"nama" validate:"required,max=20"`
-		Username string `json:"username" form:"username" validate:"required,username"`
-=======
 import (
 	"go_warung-laundry/models"
 
@@ -16,27 +10,10 @@ type (
 	CreateUserRequest struct {
 		Name     string `json:"nama" form:"nama" validate:"required,max=20"`
 		Username string `json:"username" form:"username" validate:"required,alphanum,min=5,max=20"`
->>>>>>> Stashed changes
 		Password string `json:"password" form:"password" validate:"required,min=5"`
 	}
 
 	CreateUserResponse struct {
-<<<<<<< Updated upstream
-		UserID uint   `json:"user_id"`
-		Token  string `json:"token"`
-	}
-
-	LoginUserRequest struct {
-		Email    string `json:"username" form:"username" validate:"required,username"`
-		Password string `json:"password" form:"password" validate:"required,min=5"`
-	}
-
-	LoginUserResponse struct {
-		UserID uint   `json:"user_id"`
-		Token  string `json:"token"`
-	}
-)
-=======
 		UserID   uint   `json:"user_id"`
 		Username string `json:"username"`
 		Token    string `json:"token"`
@@ -72,4 +49,3 @@ func ValidateRequest(req interface{}) error {
 	validate := validator.New()
 	return validate.Struct(req)
 }
->>>>>>> Stashed changes

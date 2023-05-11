@@ -8,11 +8,8 @@ import (
 
 	"go_warung-laundry/config"
 	"go_warung-laundry/models"
-<<<<<<< Updated upstream
-=======
 	"go_warung-laundry/models/payload"
 	"go_warung-laundry/usecase"
->>>>>>> Stashed changes
 )
 
 // Create new user
@@ -119,8 +116,6 @@ func DeleteUserByID(c echo.Context) error {
 		"message": "success delete user by ID",
 	})
 }
-<<<<<<< Updated upstream
-=======
 
 //user register & login
 
@@ -146,4 +141,3 @@ func RegisterUserController(c echo.Context) error {
 		"data":    resp,
 	})
 }
->>>>>>> Stashed changes

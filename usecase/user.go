@@ -8,55 +8,15 @@ import (
 	"go_warung-laundry/models/payload"
 )
 
-<<<<<<< Updated upstream
-func LoginUser(user *models.User) (err error) {
-	// check to db Username and password
-	err = database.LoginUser(user)
-	if err != nil {
-		fmt.Println("GetUser: Error getting user from database")
-		return
-	}
-	// generate jwt
-	token, err := middlewares.CreateToken(int(user.ID))
-	if err != nil {
-		fmt.Println("GetUser: Error Generate token")
-		return
-	}
-	user.Token = token
-	return
-}
-
-func CreateUser(req *payload.CreateUserRequest) (resp payload.CreateUserResponse, err error) {
-	newUser := &models.User{
-		Username: req.Name,
-=======
 func RegisterUser(req *payload.CreateUserRequest) (resp payload.CreateUserResponse, err error) {
 	newUser := &models.User{
 		Username: req.Username,
->>>>>>> Stashed changes
 		Password: req.Password,
 	}
 	err = database.CreateUser(newUser)
 	if err != nil {
 		return
 	}
-<<<<<<< Updated upstream
-	// generate jwt
-	token, err := middlewares.CreateToken(int(newUser.ID))
-	if err != nil {
-		fmt.Println("GetUser: Error Generate token")
-		return
-	}
-	newUser.Token = token
-	err = database.UpdateUser(newUser)
-	if err != nil {
-		fmt.Println("UpdateUser: Error Update user")
-		return
-	}
-	resp = payload.CreateUserResponse{
-		UserID: newUser.ID,
-		Token:  newUser.Token,
-=======
 
 	// generate jwt
 	token, err := middlewares.CreateToken(int(newUser.ID))
@@ -141,7 +101,6 @@ func CreateUser(req *payload.CreateUserRequest) (resp payload.CreateUserResponse
 		UserID:   newUser.ID,
 		Username: newUser.Username,
 		Token:    newUser.Token,
->>>>>>> Stashed changes
 	}
 	return
 }
