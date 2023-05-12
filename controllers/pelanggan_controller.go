@@ -1,10 +1,9 @@
 package controllers
 
 import (
-	"net/http"
-
 	"go_warung-laundry/config"
 	"go_warung-laundry/models"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -190,5 +189,88 @@ func PelangganDeletePembayaranByID(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success delete pembayaran by ID",
+	})
+}
+
+// Method untuk mengelola transaksi ke dalam database
+func PelangganGetAllTransaksi(c echo.Context) error {
+	transaksi := []models.Transaction{}
+
+	if err := config.DB.Find(&transaksi).Error; err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message":   "success get all transaksi",
+		"transaksi": transaksi,
+	})
+}
+
+func PelangganGetTransaksiByID(c echo.Context) error {
+	var transaksi models.Transaction
+	id := c.Param("id")
+
+	if err := config.DB.Where("id = ?", id).First(&transaksi).Error; err != nil {
+		return echo.NewHTTPError(http.StatusNotFound, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message":   "success get transaksi by ID",
+		"transaksi": transaksi,
+	})
+}
+
+func PelangganCreateTransaksi(c echo.Context) error {
+	transaksi := models.Transaction{}
+	if err := c.Bind(&transaksi); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	if err := config.DB.Create(&transaksi).Error; err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusCreated, map[string]interface{}{
+		"message":   "success create new transaksi",
+		"transaksi": transaksi,
+	})
+}
+
+func PelangganUpdateTransaksiByID(c echo.Context) error {
+	var transaksi models.Transaction
+	id := c.Param("id")
+
+	if err := config.DB.Where("id = ?", id).First(&transaksi).Error; err != nil {
+		return echo.NewHTTPError(http.StatusNotFound, err.Error())
+	}
+
+	if err := c.Bind(&transaksi); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	if err := config.DB.Save(&transaksi).Error; err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message":   "success update transaksi by ID",
+		"transaksi": transaksi,
+	})
+}
+
+func PelangganDeleteTransaksiByID(c echo.Context) error {
+	var transaksi models.Transaction
+	id := c.Param("id")
+
+	if err := config.DB.Where("id = ?", id).First(&transaksi).Error; err != nil {
+		return echo.NewHTTPError(http.StatusNotFound, err.Error())
+	}
+
+	if err := config.DB.Delete(&transaksi).Error; err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success delete transaksi by ID",
 	})
 }

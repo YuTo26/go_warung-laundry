@@ -24,7 +24,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 
 func New(e *echo.Echo, db *gorm.DB) {
 	e.Validator = &CustomValidator{validator: validator.New()}
-	//register & login
+	//register & login uuser
 	e.POST("/users/login", controllers.LoginUserController)
 	e.POST("/users/register", controllers.RegisterUserController)
 
@@ -53,4 +53,9 @@ func New(e *echo.Echo, db *gorm.DB) {
 	e.POST("/pelanggan/pembayaran", controllers.PelangganCreatePembayaran)
 	e.PUT("/pelanggan/pembayaran/:id", controllers.PelangganUpdatePembayaranByID)
 	e.DELETE("/pelanggan/pembayaran/:id", controllers.PelangganDeletePembayaranByID)
+	e.POST("/pelanggan/transaksi", controllers.PelangganCreateTransaksi)
+	e.GET("/pelanggan/transaks", controllers.PelangganGetAllTransaksi)
+	e.GET("/pelanggan/transaksi/:id", controllers.PelangganGetTransaksiByID)
+	e.PUT("/pelanggan/transaksi/:id", controllers.PelangganUpdateTransaksiByID)
+	e.DELETE("/pelanggan/transaksi", controllers.PelangganDeleteTransaksiByID)
 }

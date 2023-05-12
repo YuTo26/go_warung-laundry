@@ -22,7 +22,6 @@ func LoginUserController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":  "success login",
-		"name":    resp.Name,
-		"message": "hello" + resp.Username,
+		"message": "hello " + resp.Username,
 	})
 }

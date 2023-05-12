@@ -39,7 +39,7 @@ func InitDB() *gorm.DB {
 }
 
 func InitMigrate(db *gorm.DB) { // Menambahkan parameter db
-	err := db.AutoMigrate(&models.Laundry{}, &models.User{}, &models.JenisLaundry{}, &models.Laporan{}, &models.Pembayaran{}, &models.Pelanggan{})
+	err := db.AutoMigrate(&models.Transaction{}, &models.User{}, &models.JenisLaundry{}, &models.Laporan{}, &models.Pembayaran{}, &models.Pelanggan{})
 	if err != nil {
 		panic(err)
 	}

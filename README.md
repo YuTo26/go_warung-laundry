@@ -10,14 +10,15 @@ A. Kebutuhan Fungsional
 Responsibility :
 
 - Informasi jenis layanan.
+- Melakukan transaksi
+- Edit info pelanggan
   
 2. Admin
 
 Responsibility :
 
-- Login/Logout.
 - Mengelola pelanggan.
 - Mengelola data transaksi.
-- Menyediakan laporan
 - Mengelola data user/pengguna.
 - Mengelola jenis layanan.
+- Menyediakan laporan
